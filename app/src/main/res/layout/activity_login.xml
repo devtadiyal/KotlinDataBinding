@@ -79,7 +79,7 @@
                     android:background="@drawable/edit_text_round_gray_background"
                     android:drawableLeft="@drawable/ic_email"
                     android:drawablePadding="16dp"
-                    android:hint="belal@gmail.com"
+                    android:hint="dev@gmail.com"
                     android:inputType="textEmailAddress"
                     android:padding="12dp"
                     android:text="@={viewModel.email}" />
@@ -126,6 +126,7 @@
                 android:layout_marginTop="12dp"
                 android:text="Don't have an account?\nSign Up Here"
                 android:textAlignment="center"
+                android:onClick="@{viewModel::onSignUpTextClicked}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/colorPrimary" />
 
