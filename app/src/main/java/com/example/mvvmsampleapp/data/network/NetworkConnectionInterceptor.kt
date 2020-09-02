@@ -7,12 +7,14 @@ import com.example.mvvmsampleapp.utils.NoInternetException
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class NetworkConnectionInterceptor(private val context:Context) : Interceptor {
+
+class NetworkConnectionInterceptor(private val context: Context) : Interceptor {
     private val applicationContext = context.applicationContext
 
     override fun intercept(chain: Interceptor.Chain): Response {
+
         if (!isInternetAvailable())
-            throw NoInternetException("Make sure you havve active data connection")
+            throw NoInternetException("Make sure you have active data connection...")
         return chain.proceed(chain.request())
     }
 

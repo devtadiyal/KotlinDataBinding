@@ -2,17 +2,18 @@ package net.simplifiedcoding.mvvmsampleapp.data.network
 
 import com.example.mvvmsampleapp.data.network.NetworkConnectionInterceptor
 import com.example.mvvmsampleapp.data.network.response.AuthResponse
+import com.example.mvvmsampleapp.data.network.response.DummyResponse
 import com.example.mvvmsampleapp.data.network.response.QuotesResponse
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface MyApi {
+
+    @GET("")
+    suspend fun getDummyData(@Query("fullname") name:String):Response<DummyResponse>
 
     @FormUrlEncoded
     @POST("login")
@@ -43,7 +44,7 @@ interface MyApi {
 
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("https://api.simplifiedcoding.in/course-apis/mvvm/")
+                .baseUrl("https://api.diversitydata.io/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(MyApi::class.java)

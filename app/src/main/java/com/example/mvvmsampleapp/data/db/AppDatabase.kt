@@ -14,7 +14,7 @@ import com.example.mvvmsampleapp.data.db.entity.User
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getUserDao(): UserDao
-    abstract fun getQuotes(): QuotesDao
+    abstract fun getQuotesDao(): QuotesDao
 
     companion object {
 

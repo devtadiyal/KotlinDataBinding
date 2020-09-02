@@ -14,10 +14,13 @@ import com.example.mvvmsampleapp.utils.hide
 import com.example.mvvmsampleapp.utils.show
 import com.example.mvvmsampleapp.utils.snackbar
 import com.example.mvvmsampleapp.utils.toast
+import io.reactivex.Observable
+import io.reactivex.Single
 import kotlinx.android.synthetic.main.activity_login.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), AuthListener, KodeinAware {
     //using kodein di getting instance of factory and pass to viewmodel
@@ -35,6 +38,11 @@ class MainActivity : AppCompatActivity(), AuthListener, KodeinAware {
         binding.viewModel = viewModel
         //set authListener to viewmodel
         viewModel.authListener = this
+        //call reactive programmming//rxJava method
+        reactiveProgramming()
+       // getObservableFromList(listOf<String>("Apple", "Orange", "Fig"))
+       // interval()
+        mayBe()
 
         viewModel.getUserLoggedIn().observe(this, Observer { user ->
             if (user != null) {
@@ -59,4 +67,43 @@ class MainActivity : AppCompatActivity(), AuthListener, KodeinAware {
         progress_bar.hide()
         toast(errorMsg)
     }
+
+    //demo Reactive Programming
+     fun reactiveProgramming() {
+         Observable.just(1,2,3,4,5,6)
+             .map({ input -> input*2 } )
+             .filter({value -> value>6})
+             .subscribe(
+                 { value -> println("Received: $value") }, // onNext
+                 { error -> println("Error: $error") },    // onError
+                 { println("Completed!") }                 // onComplete
+             )
+     }
+    fun getObservableFromList(myList: List<String>) =
+        Observable.create<String> { emitter ->
+            myList.forEach { kind ->
+                if (kind == "") {
+                    emitter.onError(Exception("There's no value to show"))
+                }
+                emitter.onNext(kind)
+            }
+            emitter.onComplete()
+        }
+    fun interval(){
+        Observable.intervalRange(
+            20L,
+            5L,
+            0L,
+            1L,
+            TimeUnit.SECONDS).subscribe{println("Result is $it")}
+    }
+    fun mayBe(){
+        Single.just("")
+            .subscribe(
+                { value -> println("Dev Received: $value") },
+                { error -> println("Dev Error: $error") }
+            )
+    }
+
+
 }

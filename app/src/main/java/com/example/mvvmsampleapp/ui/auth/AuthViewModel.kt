@@ -2,6 +2,7 @@ package com.example.mvvmsampleapp.ui.auth
 
 import android.content.Intent
 import android.view.View
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mvvmsampleapp.data.repository.UserRepository
 import com.example.mvvmsampleapp.utils.ApiException
@@ -11,12 +12,12 @@ import com.example.mvvmsampleapp.utils.NoInternetException
 class AuthViewModel(private val repository: UserRepository) : ViewModel() {
     var email: String? = null
     var password: String? = null
+    val mutableLiveData : MutableLiveData<String>? = null
     var authListener: AuthListener? = null
     var name: String? = null
     var passwordConfirm: String? = null
 
     fun getUserLoggedIn() = repository.getUser()
-
 
     fun onLoginButtonClick(view: View) {
         authListener?.onStarted()
